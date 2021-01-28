@@ -30,7 +30,7 @@ class Login extends Component {
             username: username,
             password: password
         }
-        axios.post('https://cors-anywhere.herokuapp.com/http://teachers-pet-online-backend.herokuapp.com/login', {user}, {withCredentials: true})
+        axios.post('http://teachers-pet-online-backend.herokuapp.com/login', {user}, {withCredentials: true})
         // axios.post('http://localhost:3001/login', {user}, {withCredentials: true})
         .then(response => {
             if (response.data.logged_in) {

@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 const Home = (props) => {
 
     const handleClick = () => {
-        axios.delete('https://cors-anywhere.herokuapp.com/http://teachers-pet-online-backend.herokuapp.com/logout', {withCredentials: true})
+        axios.delete('http://teachers-pet-online-backend.herokuapp.com/logout', {withCredentials: true})
         // axios.delete('http://localhost:3001/logout', {withCredentials: true})
         .then(response => {
         props.handleLogout()
