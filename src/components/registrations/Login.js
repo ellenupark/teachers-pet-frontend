@@ -25,10 +25,9 @@ class Login extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        const {username, email, password} = this.state
+        const {username, password} = this.state
         let user = {
             username: username,
-            email: email,
             password: password
         }
         axios.post('http://teachers-pet-online-backend.herokuapp.com/login', {user}, {withCredentials: true})
