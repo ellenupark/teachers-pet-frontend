@@ -4,6 +4,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Home from './components/Home'
 import Login from './components/registrations/Login'
 import Signup from './components/registrations/Signup'
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -12,11 +13,14 @@ class App extends Component {
       user: {}
      };
   }
-componentDidMount() {
+
+  componentDidMount() {
     this.loginStatus()
   }
-loginStatus = () => {
-    axios.get('http://localhost:3001/logged_in', {withCredentials: true})
+
+  loginStatus = () => {
+    axios.get('http://teachers-pet-online-backend.herokuapp.com/logged_in', {withCredentials: true})
+    // axios.get('http://localhost:3001/logged_in', {withCredentials: true})
     .then(response => {
       if (response.data.logged_in) {
         this.handleLogin(response)
@@ -26,19 +30,22 @@ loginStatus = () => {
     })
     .catch(error => console.log('api errors:', error))
   }
-handleLogin = (data) => {
+
+  handleLogin = (data) => {
     this.setState({
       isLoggedIn: true,
       user: data.user
     })
   }
-handleLogout = () => {
+
+  handleLogout = () => {
     this.setState({
     isLoggedIn: false,
     user: {}
     })
   }
-render() {
+
+  render() {
     return (
       <div>
         <BrowserRouter>
@@ -67,4 +74,5 @@ render() {
     );
   }
 }
+
 export default App;
