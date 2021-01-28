@@ -13,7 +13,6 @@ const Home = (props) => {
         })
         .catch(error => console.log(error))
     }
-
     return (
         <div>
             <Link to='/login'>Log In</Link><br />

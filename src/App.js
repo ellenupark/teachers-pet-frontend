@@ -1,78 +1,69 @@
-import React, { Component } from 'react';
+import { React } from 'react';
 import axios from 'axios'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Home from './components/Home'
 import Login from './components/registrations/Login'
 import Signup from './components/registrations/Signup'
+import { useState, useEffect } from 'react';
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            isLoggedIn: false,
-            user: {}
-        };
-    }
 
-    componentDidMount() {
-        this.loginStatus()
-    }
+const App = () => {
+    const [isLoggedIn, setLogIn] = useState(false);
+    const [user, setUser] = useState({});
 
-    loginStatus = () => {
+    useEffect(() => {
+        loginStatus()
+    }, [])
+
+    const loginStatus = () => {
         axios.get('http://teachers-pet-online-backend.herokuapp.com/logged_in', {withCredentials: true})
         // axios.get('http://localhost:3001/logged_in', {withCredentials: true})
         .then(response => {
             if (response.data.logged_in) {
-                this.handleLogin(response)
+                handleLogin(response)
             } else {
-                this.handleLogout()
+                handleLogout()
             }
         })
         .catch(error => console.log('api errors:', error))
     }
 
-    handleLogin = (data) => {
-        this.setState({
-        isLoggedIn: true,
-        user: data.user
-        })
+    const handleLogin = (data) => {
+        setLogIn(true)
+        setUser(data.user)
     }
 
-    handleLogout = () => {
-        this.setState({
-            isLoggedIn: false,
-            user: {}
-        })
+    const handleLogout = () => {
+        setLogIn(false)
+        setUser({})
     }
 
-    render() {
-        return (
+    return (
         <div>
             <BrowserRouter>
                 <Switch>
                     <Route 
                     exact path='/' 
                     render={props => (
-                    <Home {...props} handleLogout={this.handleLogout} loggedInStatus={this.state.isLoggedIn}/>
+                    <Home {...props} handleLogout={handleLogout} loggedInStatus={isLoggedIn}/>
                     )}
                     />
                     <Route 
                     exact path='/login' 
                     render={props => (
-                    <Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
+                    <Login {...props} handleLogin={handleLogin} loggedInStatus={isLoggedIn}/>
                     )}
                     />
                     <Route 
                     exact path='/signup' 
                     render={props => (
-                    <Signup {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
+                    <Signup {...props} handleLogin={handleLogin} loggedInStatus={isLoggedIn}/>
                     )}
                     />
                 </Switch>
             </BrowserRouter>
         </div>
-        );
-    }
+    );
 }
 
 export default App;
