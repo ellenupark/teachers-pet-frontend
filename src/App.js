@@ -5,6 +5,7 @@ import Home from './components/Home'
 import Login from './components/registrations/Login'
 import Signup from './components/registrations/Signup'
 import { useState, useEffect } from 'react';
+import NavBar from './components/navs/NavBar'
 
 
 const App = () => {
@@ -41,6 +42,11 @@ const App = () => {
     return (
         <div>
             <BrowserRouter>
+                <Route exact path={['/', '/login', '/signup']} 
+                    render={props => (
+                    <NavBar {...props} />
+                    )}
+                />
                 <Switch>
                     <Route 
                     exact path='/' 

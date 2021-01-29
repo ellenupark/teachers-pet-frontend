@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Nav Bar */
+
+.signup, .login {
+  margin: 5px;
+  color: #000000;
+  width: 120px;
+  text-align: center;
+}
+
+.nav-title {
+  font-weight: bold;
+}
+
+.active-button {
+  border-radius: 100px;
+  background-color: #5BC0EB;
+}
